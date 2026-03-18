@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+  font-family:
+    'Inter',
+    'Avenir Next',
+    'Segoe UI',
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background:
+    radial-gradient(1000px 420px at 88% -10%, #dce9ff 0%, transparent 70%),
+    radial-gradient(900px 420px at -10% 0%, #efe9ff 0%, transparent 65%),
+    #f6f8fc;
+  color: #1b2331;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  max-width: 1120px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #ffffff;
+  border-inline: 1px solid #e4e8f0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
