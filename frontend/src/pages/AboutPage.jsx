@@ -1,69 +1,79 @@
+import { useI18n } from '../i18n/useI18n'
+
 function AboutPage() {
+  const { t } = useI18n()
+
   return (
     <>
       <section className="hero-panel compact">
         <p className="eyebrow">About</p>
-        <h1>About Apsara</h1>
-        <p className="lead">
-          Apsara builds AI-native, human-centric software with a point of view
-          rooted in elegance, aesthetics, and practical impact.
-        </p>
+        <h1>{t('pages.about.title')}</h1>
+        <p className="lead">{t('pages.about.lead')}</p>
       </section>
 
-      <section className="content-section">
-        <div className="card-grid">
-          <article className="card">
-            <h3>Mythology and inspiration</h3>
-            <p>
-              In celestial Hindu mythology, Apsaras are associated with grace,
-              presence, and connection. We carry that inspiration into software
-              that supports meaningful human interaction.
-            </p>
-          </article>
-          <article className="card">
-            <h3>Elegance and aesthetics</h3>
-            <p>
-              We believe software should feel refined and intuitive. Our design
-              direction emphasizes clarity, aesthetic balance, and emotional
-              ease in everyday use.
-            </p>
-          </article>
-          <article className="card">
-            <h3>Joy and positive outlook</h3>
-            <p>
-              We build products and consulting solutions that encourage joy,
-              confidence, and a positive outlook toward the world people live
-              and collaborate in.
-            </p>
-          </article>
-        </div>
-      </section>
+      <section className="content-section about-monolith">
+        <article className="about-chapter">
+          <h2>Mission</h2>
+          <p>
+            We create AI-native, human-centric software that helps people
+            discover opportunities, connect with others, and take meaningful
+            action in the real world.
+          </p>
+        </article>
 
-      <section className="content-section">
-        <h2>Team</h2>
-        <div className="card-grid">
-          <article className="card">
-            <h3>Product and Strategy</h3>
-            <p>
-              We shape product direction with equal emphasis on AI-native
-              capability, human outcomes, and sustainable business value.
-            </p>
-          </article>
-          <article className="card">
-            <h3>Engineering and AI Systems</h3>
-            <p>
-              We deliver mobile and web applications, AI agents, and custom RAG
-              systems with production-ready engineering standards.
-            </p>
-          </article>
-          <article className="card">
-            <h3>Design and Experience</h3>
-            <p>
-              We focus on elegance, readability, and intuitive interactions so
-              software feels clear, useful, and genuinely pleasant to use.
-            </p>
-          </article>
-        </div>
+        <article className="about-chapter">
+          <h2>Inspiration and outlook</h2>
+          <p>
+            In celestial Hindu mythology, Apsaras are associated with grace,
+            presence, and connection. We carry that inspiration into software
+            design by prioritizing elegance, clarity, and emotional ease.
+          </p>
+          <p>
+            Our work aims to spread joy, support constructive collaboration, and
+            promote a positive outlook in the communities and organizations that
+            use our products.
+          </p>
+        </article>
+
+        <article className="about-chapter">
+          <h2>What we build</h2>
+          <p>
+            We build and evolve products such as Ocio, HangOut, SportCenter,
+            DanceSchool Pro, Player, and Dancer across social networking,
+            events, and domain-specific operations.
+          </p>
+          <p>
+            We also partner with organizations on consulting across AI systems,
+            community software, cloud optimization, automation, and custom CRM.
+          </p>
+          <p>
+            For developers, we provide API access on request and are expanding
+            the Ocio Developer Platform (coming soon) for AI-enabled custom
+            application development.
+          </p>
+        </article>
+
+        <article className="about-chapter">
+          <h2>Team</h2>
+          <p>
+            Our team blends product strategy, engineering depth, and design
+            discipline.
+          </p>
+          <ul className="about-team-list">
+            <li>
+              <strong>Product and Strategy:</strong> We shape roadmaps with
+              equal focus on AI capability, human outcomes, and business value.
+            </li>
+            <li>
+              <strong>Engineering and AI Systems:</strong> We deliver reliable
+              software across mobile, web, AI agents, and custom RAG pipelines.
+            </li>
+            <li>
+              <strong>Design and Experience:</strong> We focus on readability,
+              elegance, and intuitive interactions.
+            </li>
+          </ul>
+        </article>
       </section>
     </>
   )

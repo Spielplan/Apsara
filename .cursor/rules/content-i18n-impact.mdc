@@ -1,0 +1,16 @@
+---
+description: Keep content changes translated and cross-page consistent
+alwaysApply: true
+---
+
+# Content Change Guardrails
+
+- When editing or adding user-facing copy, update translation entries in `frontend/src/i18n/messages.js` in the same change.
+- If a key is missing in a non-English locale, add it before finishing; do not leave newly introduced English-only UI labels.
+- Keep language labels/code options in sync with supported locales.
+
+# Cross-Page Impact Checks
+
+- Treat page edits as site-level changes: verify related pages, nav labels, dropdown items, and footer links for consistency.
+- If one page changes positioning/terminology, update matching references on other pages.
+- Before finalizing, run frontend validation (`npm run lint` and `npm run build`) and fix any issues introduced by the change.

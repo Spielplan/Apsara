@@ -1,30 +1,42 @@
+import { Link } from 'react-router-dom'
+import { useI18n } from '../i18n/useI18n'
+
 function DevelopersPage() {
+  const { t } = useI18n()
+
   return (
     <>
       <section className="hero-panel compact">
         <p className="eyebrow">Developers</p>
-        <h1>Build human-centered products with Apsara</h1>
-        <p className="lead">
-          We support developers building products focused on connecting humans
-          through communities, events, and real-world participation.
-        </p>
+        <h1>{t('pages.developers.title')}</h1>
+        <p className="lead">{t('pages.developers.lead')}</p>
       </section>
 
       <section className="content-section">
         <div className="card-grid">
           <article className="card">
-            <h3>Ocio APIs for developers (on request)</h3>
+            <h3>
+              <Link to="/developers/apis" className="inline-link">
+                APIs
+              </Link>
+            </h3>
             <p>
-              API access is provided on request for teams building
-              human-connection products with social networking, event discovery,
-              and community participation workflows.
+              API access is available on request for teams building
+              human-connection software with social and event-driven use cases.
             </p>
           </article>
           <article className="card">
-            <h3>Ocio Developer Platform (Coming soon)</h3>
+            <h3>
+              <Link
+                to="/developers/ocio-developer-platform"
+                className="inline-link"
+              >
+                Ocio Developer Platform (Coming soon)
+              </Link>
+            </h3>
             <p>
               Ocio Developer Platform is an AI-enabled app development platform
-              focused on building customized applications with social
+              (coming soon), focused on building customized applications with social
               networking, event management, ticketing, and bookings.
             </p>
           </article>

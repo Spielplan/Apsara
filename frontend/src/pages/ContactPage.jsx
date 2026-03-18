@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useI18n } from '../i18n/useI18n'
 
 const initialForm = {
   name: '',
@@ -8,6 +9,7 @@ const initialForm = {
 }
 
 function ContactPage() {
+  const { t } = useI18n()
   const [form, setForm] = useState(initialForm)
   const [status, setStatus] = useState('')
   const [sending, setSending] = useState(false)
@@ -46,12 +48,8 @@ function ContactPage() {
     <>
       <section className="hero-panel compact">
         <p className="eyebrow">Contact</p>
-        <h1>Talk to Apsara</h1>
-        <p className="lead">
-          Reach out for product collaboration, consulting, AI agents, custom
-          RAG, model hosting, human-centric platform design, or APIs for
-          developers on request.
-        </p>
+        <h1>{t('pages.contact.title')}</h1>
+        <p className="lead">{t('pages.contact.lead')}</p>
       </section>
 
       <section className="content-section">
