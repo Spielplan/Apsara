@@ -1,48 +1,14 @@
-import { useState } from 'react'
+import { useForm, ValidationError } from '@formspree/react'
 import { useI18n } from '../i18n/useI18n'
 
-const initialForm = {
-  name: '',
-  email: '',
-  company: '',
-  message: '',
-}
+// IMPORTANT: Replace 'YOUR_FORM_ID' with the actual Formspree form ID
+// obtained from https://formspree.io/forms after creating a form.
+// Example ID format: 'xrgvkqzl'
+const FORMSPREE_FORM_ID = 'YOUR_FORM_ID'
 
 function ContactPage() {
   const { t } = useI18n()
-  const [form, setForm] = useState(initialForm)
-  const [status, setStatus] = useState('')
-  const [sending, setSending] = useState(false)
-
-  const onChange = (event) => {
-    const { name, value } = event.target
-    setForm((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const onSubmit = async (event) => {
-    event.preventDefault()
-    setSending(true)
-    setStatus('')
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      })
-
-      if (!response.ok) {
-        throw new Error('Unable to submit')
-      }
-
-      setForm(initialForm)
-      setStatus('Thanks. Your message has been sent to Apsara.')
-    } catch {
-      setStatus('Unable to submit right now. Please try again shortly.')
-    } finally {
-      setSending(false)
-    }
-  }
+  const [state, handleSubmit] = useForm(FORMSPREE_FORM_ID)
 
   return (
     <>
@@ -53,51 +19,34 @@ function ContactPage() {
       </section>
 
       <section className="content-section">
-        <form className="contact-form" onSubmit={onSubmit}>
-          <label>
-            Name
-            <input
-              name="name"
-              type="text"
-              value={form.name}
-              onChange={onChange}
-              required
-            />
-          </label>
-          <label>
-            Email
-            <input
-              name="email"
-              type="email"
-              value={form.email}
-              onChange={onChange}
-              required
-            />
-          </label>
-          <label>
-            Company
-            <input
-              name="company"
-              type="text"
-              value={form.company}
-              onChange={onChange}
-            />
-          </label>
-          <label>
-            Message
-            <textarea
-              name="message"
-              rows="5"
-              value={form.message}
-              onChange={onChange}
-              required
-            />
-          </label>
-          <button type="submit" className="button button-primary" disabled={sending}>
-            {sending ? 'Sending...' : 'Send message'}
-          </button>
-          {status ? <p className="form-status">{status}</p> : null}
-        </form>
+        {state.succeeded ? (
+          <p className="form-status">Thanks. Your message has been sent to Apsara.</p>
+        ) : (
+          <form className="contact-form" onSubmit={handleSubmit}>
+            <label>
+              Name
+              <input name="name" type="text" required />
+              <ValidationError field="name" prefix="Name" errors={state.errors} />
+            </label>
+            <label>
+              Email
+              <input name="email" type="email" required />
+              <ValidationError field="email" prefix="Email" errors={state.errors} />
+            </label>
+            <label>
+              Company
+              <input name="company" type="text" />
+            </label>
+            <label>
+              Message
+              <textarea name="message" rows="5" required />
+              <ValidationError field="message" prefix="Message" errors={state.errors} />
+            </label>
+            <button type="submit" className="button button-primary" disabled={state.submitting}>
+              {state.submitting ? 'Sending...' : 'Send message'}
+            </button>
+          </form>
+        )}
       </section>
     </>
   )
