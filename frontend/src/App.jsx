@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Link, NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import './App.css'
 import HomePage from './pages/HomePage'
@@ -22,9 +23,28 @@ function App() {
   const { language, setLanguage, t } = useI18n()
   const products = getProducts(language)
   const location = useLocation()
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [expandedMobileSection, setExpandedMobileSection] = useState(null)
   const isProducts = location.pathname.startsWith('/products')
   const isConsulting = location.pathname.startsWith('/consulting')
   const isDevelopers = location.pathname.startsWith('/developers')
+  const navMenuId = 'main-navigation'
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false)
+    setExpandedMobileSection(null)
+  }, [location.pathname])
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false)
+    setExpandedMobileSection(null)
+  }
+
+  const toggleMobileSection = (sectionName) => {
+    setExpandedMobileSection((currentSection) =>
+      currentSection === sectionName ? null : sectionName,
+    )
+  }
 
   return (
     <div className="site-shell">
@@ -47,47 +67,139 @@ function App() {
               ))}
             </select>
           </div>
-          <nav className="topnav" aria-label="Main navigation">
-            <NavLink to="/" end>
+          <button
+            type="button"
+            className="topnav-toggle"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls={navMenuId}
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            onClick={() => setIsMobileMenuOpen((current) => !current)}
+          >
+            {isMobileMenuOpen ? 'X' : '☰'}
+          </button>
+          {isMobileMenuOpen ? (
+            <button
+              type="button"
+              className="topnav-backdrop"
+              aria-label="Close menu"
+              onClick={closeMobileMenu}
+            />
+          ) : null}
+          <nav
+            id={navMenuId}
+            className={`topnav ${isMobileMenuOpen ? 'open' : ''}`}
+            aria-label="Main navigation"
+          >
+            <NavLink to="/" end onClick={closeMobileMenu}>
               {t('nav.home')}
             </NavLink>
-            <div className="nav-dropdown">
-              <Link to="/products" className={isProducts ? 'active' : ''}>
-                {t('nav.products')}
-              </Link>
+            <div
+              className={`nav-dropdown ${
+                expandedMobileSection === 'products' ? 'mobile-expanded' : ''
+              }`}
+            >
+              <div className="nav-dropdown-trigger">
+                <Link
+                  to="/products"
+                  className={isProducts ? 'active' : ''}
+                  onClick={closeMobileMenu}
+                >
+                  {t('nav.products')}
+                </Link>
+                <button
+                  type="button"
+                  className="nav-submenu-toggle"
+                  aria-expanded={expandedMobileSection === 'products'}
+                  aria-label="Toggle products submenu"
+                  onClick={() => toggleMobileSection('products')}
+                >
+                  {expandedMobileSection === 'products' ? '−' : '+'}
+                </button>
+              </div>
               <div className="nav-dropdown-menu">
                 {products.map((product) => (
-                  <NavLink key={product.slug} to={`/products/${product.slug}`}>
+                  <NavLink
+                    key={product.slug}
+                    to={`/products/${product.slug}`}
+                    onClick={closeMobileMenu}
+                  >
                     {product.name}
                   </NavLink>
                 ))}
               </div>
             </div>
-            <div className="nav-dropdown">
-              <Link to="/consulting" className={isConsulting ? 'active' : ''}>
-                {t('nav.consulting')}
-              </Link>
+            <div
+              className={`nav-dropdown ${
+                expandedMobileSection === 'consulting' ? 'mobile-expanded' : ''
+              }`}
+            >
+              <div className="nav-dropdown-trigger">
+                <Link
+                  to="/consulting"
+                  className={isConsulting ? 'active' : ''}
+                  onClick={closeMobileMenu}
+                >
+                  {t('nav.consulting')}
+                </Link>
+                <button
+                  type="button"
+                  className="nav-submenu-toggle"
+                  aria-expanded={expandedMobileSection === 'consulting'}
+                  aria-label="Toggle consulting submenu"
+                  onClick={() => toggleMobileSection('consulting')}
+                >
+                  {expandedMobileSection === 'consulting' ? '−' : '+'}
+                </button>
+              </div>
               <div className="nav-dropdown-menu">
-                <NavLink to="/consulting/ai-consulting">
+                <NavLink to="/consulting/ai-consulting" onClick={closeMobileMenu}>
                   {t('nav.aiConsulting')}
                 </NavLink>
-                <NavLink to="/consulting/community-software">
+                <NavLink to="/consulting/community-software" onClick={closeMobileMenu}>
                   {t('nav.communitySoftware')}
                 </NavLink>
-                <NavLink to="/consulting/cloud-optimization">
+                <NavLink to="/consulting/cloud-optimization" onClick={closeMobileMenu}>
                   {t('nav.cloudOptimization')}
                 </NavLink>
-                <NavLink to="/consulting/automation">{t('nav.automation')}</NavLink>
-                <NavLink to="/consulting/custom-crm">{t('nav.customCrm')}</NavLink>
+                <NavLink to="/consulting/automation" onClick={closeMobileMenu}>
+                  {t('nav.automation')}
+                </NavLink>
+                <NavLink to="/consulting/custom-crm" onClick={closeMobileMenu}>
+                  {t('nav.customCrm')}
+                </NavLink>
               </div>
             </div>
-            <div className="nav-dropdown">
-              <Link to="/developers" className={isDevelopers ? 'active' : ''}>
-                {t('nav.developers')}
-              </Link>
+            <div
+              className={`nav-dropdown ${
+                expandedMobileSection === 'developers' ? 'mobile-expanded' : ''
+              }`}
+            >
+              <div className="nav-dropdown-trigger">
+                <Link
+                  to="/developers"
+                  className={isDevelopers ? 'active' : ''}
+                  onClick={closeMobileMenu}
+                >
+                  {t('nav.developers')}
+                </Link>
+                <button
+                  type="button"
+                  className="nav-submenu-toggle"
+                  aria-expanded={expandedMobileSection === 'developers'}
+                  aria-label="Toggle developers submenu"
+                  onClick={() => toggleMobileSection('developers')}
+                >
+                  {expandedMobileSection === 'developers' ? '−' : '+'}
+                </button>
+              </div>
               <div className="nav-dropdown-menu">
-                <NavLink to="/developers/apis">{t('nav.apis')}</NavLink>
-                <NavLink to="/developers/ocio-developer-platform">
+                <NavLink to="/developers/apis" onClick={closeMobileMenu}>
+                  {t('nav.apis')}
+                </NavLink>
+                <NavLink
+                  to="/developers/ocio-developer-platform"
+                  onClick={closeMobileMenu}
+                >
                   {t('nav.ocioDeveloperPlatformComingSoon')}
                 </NavLink>
               </div>
