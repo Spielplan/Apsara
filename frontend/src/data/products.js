@@ -175,7 +175,7 @@ const localizedProductText = {
       description:
         'Aplicativo AI-native para organizar encontros online e offline para grupos e comunidades.',
       overview:
-        'HangOut simplifica planejamento, participação e acompanhamento para manter comunidades ativas.',
+        'HangOut simplifica planejamento, participação e acompanhamento para manter comunidades ativas',
     },
     sportcenter: {
       description:
