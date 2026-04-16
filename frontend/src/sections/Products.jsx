@@ -9,7 +9,7 @@ export default function Products() {
       <div className="product-card">
         <h3 className="product-name">Ocio</h3>
         <p className="product-description">
-          The API-first platform behind activity and community solutions &mdash;
+          The AI-first, API-first platform behind activity and community solutions &mdash;
           booking, payments, events, and social features for sports venues, dance
           studios, social clubs, and any business that brings people together.
         </p>
