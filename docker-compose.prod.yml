@@ -10,12 +10,12 @@ services:
     labels:
       - traefik.enable=true
       # HTTPS router
-      - traefik.http.routers.apsara-website-https.rule=Host(`apsara.ocioapp.ai`)
+      - traefik.http.routers.apsara-website-https.rule=Host(`apsara.software`) || Host(`apsara.ocioapp.ai`)
       - traefik.http.routers.apsara-website-https.entrypoints=https
       - traefik.http.routers.apsara-website-https.tls=true
       - traefik.http.routers.apsara-website-https.service=apsara-website
       # HTTP → HTTPS redirect
-      - traefik.http.routers.apsara-website-http.rule=Host(`apsara.ocioapp.ai`)
+      - traefik.http.routers.apsara-website-http.rule=Host(`apsara.software`) || Host(`apsara.ocioapp.ai`)
       - traefik.http.routers.apsara-website-http.entrypoints=http
       - traefik.http.routers.apsara-website-http.middlewares=apsara-https-redirect
       - traefik.http.middlewares.apsara-https-redirect.redirectscheme.scheme=https
