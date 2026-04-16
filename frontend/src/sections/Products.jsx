@@ -9,9 +9,9 @@ export default function Products() {
       <div className="product-card">
         <h3 className="product-name">Ocio</h3>
         <p className="product-description">
-          A platform for discovering shared interests and connecting with people
-          in your community &mdash; for sports, culture, music, and everything
-          in between.
+          The API-first platform behind activity and community solutions &mdash;
+          booking, payments, events, and social features for sports venues, dance
+          studios, social clubs, and any business that brings people together.
         </p>
         <a
           href="https://www.ocioapp.ai"
